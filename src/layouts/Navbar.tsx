@@ -17,13 +17,18 @@ export default function Navbar() {
       <div className="h-full w-full bg-white/60">
         <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
           <div>
-            BRITANIA
+            <h1 className="text-3xl font-bold">BRITANIA</h1>
           </div>
           <div>
             <ul className="flex items-center">
               <li>
                 <Button variant="link" asChild>
                   <Link to="/">Home</Link>
+                </Button>
+              </li>
+              <li>
+                <Button variant="link" asChild>
+                  <Link to="/">All Books</Link>
                 </Button>
               </li>
               
@@ -37,15 +42,12 @@ export default function Navbar() {
                   <DropdownMenuTrigger className="outline-none">
                     <Avatar>
                       <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback>B</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
-                      Profile
-                    </DropdownMenuItem>
                     <DropdownMenuItem className="cursor-pointer">
                       <Link to={"/login"}>Login</Link>
                     </DropdownMenuItem>
@@ -54,13 +56,7 @@ export default function Navbar() {
                     </DropdownMenuItem>
 
                     <DropdownMenuItem className="cursor-pointer">
-                      LogOut
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Team
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Subscription
+                      Log Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
