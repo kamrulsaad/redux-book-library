@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button"
+import MainLayout from "./layouts/MainLayout"
+
 
 function App() {
 
   return (
-    <h1> 
-      <Button variant="default">Hello</Button>
-    </h1>
+    <div> 
+      <MainLayout />
+    </div>
   )
 }
 
