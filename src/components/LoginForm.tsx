@@ -45,7 +45,7 @@ export function LoginForm() {
       />
       {error && <p className="text-red-500 my-2">{error}</p>}
       <Button className="mt-4 block mx-auto" type="submit">
-        {isLoading ? "Loading..." : "Sign up"}
+        {isLoading ? "Loading..." : "Login"}
       </Button>
     </form>
   );

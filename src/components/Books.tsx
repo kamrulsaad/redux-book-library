@@ -10,7 +10,7 @@ const Books = () => {
   const {data} = useGetBooksQuery(undefined)
 
   return (
-    <div className='px-20 grid grid-cols-2 gap-20 mb-4'>
+    <div className='px-20 grid grid-cols-3 gap-x-20 gap-y-5 mb-4'>
       {
         data?.data.map((book: IBook) => (
           <BookCard book={book} key={book?._id}/>
