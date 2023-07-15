@@ -1,17 +1,19 @@
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { LoginForm } from '@/components/LoginForm';
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { LoginForm } from "@/components/LoginForm";
+import Navbar from "@/layouts/Navbar";
 
 export default function Login() {
   return (
     <>
+      <Navbar />
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           to="/signup"
           className={cn(
-            buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'absolute right-4 top-4 md:right-8 md:top-8'
+            buttonVariants({ variant: "ghost", size: "sm" }),
+            "absolute right-4 top-4 md:right-8 md:top-8"
           )}
         >
           Signup
@@ -21,11 +23,11 @@ export default function Login() {
             className="absolute inset-0 bg-cover"
             style={{
               backgroundImage:
-                'url(https://images.unsplash.com/photo-1590069261209-f8e9b8642343?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80)',
+                "url(https://th.bing.com/th/id/R.3520740dc0b48e95c2cdb9ccd20f3aaf?rik=hy0%2fzReMxxFJtA&pid=ImgRaw&r=0)",
             }}
           />
           <div className="relative z-20 flex items-center text-lg font-medium">
-            <img className="h-8" src='' alt="" />
+            <img className="h-8" src="" alt="" />
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2"></blockquote>
@@ -38,19 +40,19 @@ export default function Login() {
                 Login to your account
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below
+                Enter your email and password below
               </p>
             </div>
             <LoginForm />
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{' '}
+              By clicking continue, you agree to our{" "}
               <Link
                 to="/terms"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Terms of Service
-              </Link>{' '}
-              and{' '}
+              </Link>{" "}
+              and{" "}
               <Link
                 to="/privacy"
                 className="underline underline-offset-4 hover:text-primary"

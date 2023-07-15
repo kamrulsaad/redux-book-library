@@ -1,15 +1,5 @@
 import { Link } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
-import { DropdownMenuSeparator } from "../components/ui/dropdown-menu";
-import { DropdownMenuLabel } from "../components/ui/dropdown-menu";
-import {
-  DropdownMenuItem,
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-} from "../components/ui/dropdown-menu";
-import { HiOutlineSearch } from "react-icons/hi";
 
 export default function Navbar() {
   return (
@@ -31,35 +21,18 @@ export default function Navbar() {
                   <Link to="/">All Books</Link>
                 </Button>
               </li>
-              
               <li>
-                <Button variant="ghost">
-                  <HiOutlineSearch size="25" />
+                <Button variant="link" asChild>
+                  <Link to="/login">Login</Link>
                 </Button>
               </li>
-              <li className="ml-5">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none">
-                    <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>B</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuLabel>Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
-                      <Link to={"/login"}>Login</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      <Link to={"/signup"}>Sign Up</Link>
-                    </DropdownMenuItem>
-
-                    <DropdownMenuItem className="cursor-pointer">
-                      Log Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              <li>
+                <Button variant="link" asChild>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </li>
+              <li>
+                <Button variant="outline">Log Out</Button>
               </li>
             </ul>
           </div>
