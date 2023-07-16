@@ -2,6 +2,7 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { IBook } from "@/types/book";
 import { AiOutlineHeart } from "react-icons/ai";
+import { format } from "date-fns";
 
 interface IProps {
   book: IBook;
@@ -23,7 +24,9 @@ export default function BookCard({ book }: IProps) {
         <h2 className="text-xl mb-4 font-semibold">{book?.title}</h2>
         <p>Author: {book.author} </p>
         <p className="text-sm">Genre: {book.genre} </p>
-        <p className="text-sm">Published: {book.publication_date.substring(0,10)}</p>
+        <p className="text-sm">
+          Published: {format(new Date(book.publication_date), "PPP")}
+        </p>
         <Button
           className="absolute bottom-[20px] right-[20px]"
           variant="outline"
