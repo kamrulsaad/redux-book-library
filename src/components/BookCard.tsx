@@ -12,7 +12,7 @@ export default function BookCard({ book }: IProps) {
   return (
     <div className="rounded-2xl relative flex items-start p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-4">
       <div>
-        <Link to={`/book-details/${book._id}`}>
+        <Link to={`/book/${book._id!}`}>
           <img
             className="max-w-sm max-h-[250px]"
             src={book?.image}
@@ -25,7 +25,7 @@ export default function BookCard({ book }: IProps) {
         <p>Author: {book.author} </p>
         <p className="text-sm">Genre: {book.genre} </p>
         <p className="text-sm">
-          Published: {format(new Date(book.publication_date), "PPP")}
+          Published: {format(new Date(book.publication_date!), "PPP")}
         </p>
         <Button
           className="absolute bottom-[20px] right-[20px]"
