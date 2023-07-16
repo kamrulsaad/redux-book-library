@@ -20,6 +20,7 @@ import {
   setSearchTerm,
   setYear,
 } from "@/redux/features/book/bookSlice";
+import { Link } from "react-router-dom";
 
 export default function AllBooks() {
   const dispatch = useAppDispatch();
@@ -79,8 +80,8 @@ export default function AllBooks() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <div className="space-y-3 ">
-            <h1 className="text-2xl uppercase">publication year</h1>
+          <div className="space-y-3 mt-2">
+            <h1 className=" uppercase">publication year</h1>
             <div className="max-w-xl">
               <Slider
                 defaultValue={[2021]}
@@ -103,6 +104,9 @@ export default function AllBooks() {
             )}
           </div>
         </div>
+        <Button>
+          <Link to={"/add-new-book"}>Add New</Link>
+        </Button>
       </div>
       <div className="col-span-9">
         {genre && (
@@ -120,7 +124,7 @@ export default function AllBooks() {
           {booksData?.map((book: IBook) => (
             <BookCard book={book} />
           ))}
-          {!booksData.length && `No Results found for ${searchTerm || year}`}
+          {!booksData?.length && `No Results found for ${searchTerm || year}`}
         </div>
       </div>
     </div>

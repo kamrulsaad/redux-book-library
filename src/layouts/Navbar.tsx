@@ -50,11 +50,18 @@ export default function Navbar() {
                   </li>
                 </>
               ) : (
-                <li>
-                  <Button onClick={handleLogout} variant="outline">
-                    Log Out
-                  </Button>
-                </li>
+                <>
+                  <li>
+                    <Button variant="link" asChild>
+                      <Link to="/add-new-book">Add New Book</Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button onClick={handleLogout} variant="outline">
+                      Log Out
+                    </Button>
+                  </li>
+                </>
               )}
             </ul>
           </div>
