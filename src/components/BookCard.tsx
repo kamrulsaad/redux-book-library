@@ -23,8 +23,7 @@ export default function BookCard({ book }: IProps) {
         <h2 className="text-xl mb-4 font-semibold">{book?.title}</h2>
         <p>Author: {book.author} </p>
         <p className="text-sm">Genre: {book.genre} </p>
-        <p className="text-sm">Published: {book.publication_date}</p>
-        <p className="text-sm">Price: </p>
+        <p className="text-sm">Published: {book.publication_date.substring(0,10)}</p>
         <Button
           className="absolute bottom-[20px] right-[20px]"
           variant="outline"
