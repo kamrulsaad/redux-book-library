@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { auth } from '@/lib/firebase';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { auth } from "@/lib/firebase";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from 'firebase/auth';
+} from "firebase/auth";
 
 interface IUser {
   user: {
@@ -17,7 +18,7 @@ interface IUser {
 
 const initialState: IUser = {
   user: {
-    email: '',
+    email: "",
   },
   isLoading: false,
   isError: false,
@@ -30,16 +31,30 @@ interface ICredentials {
 }
 
 export const createUser = createAsyncThunk(
-  'user/createUser',
+  "user/createUser",
   async ({ email, password }: ICredentials) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
+
+    const apiUrl = "http://localhost:5000/user";
+    const requestData = {
+      email,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    };
+    fetch(apiUrl, requestOptions)
 
     return data.user.email;
   }
 );
 
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  "user/loginUser",
   async ({ email, password }: ICredentials) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
 
@@ -48,7 +63,7 @@ export const loginUser = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<string | null>) => {

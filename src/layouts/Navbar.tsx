@@ -57,6 +57,16 @@ export default function Navbar() {
                     </Button>
                   </li>
                   <li>
+                    <Button variant="link" asChild>
+                      <Link to="/wishlist">WishList</Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button variant="link" asChild>
+                      <Link to="/reading">Reading</Link>
+                    </Button>
+                  </li>
+                  <li>
                     <Button onClick={handleLogout} variant="outline">
                       Log Out
                     </Button>
