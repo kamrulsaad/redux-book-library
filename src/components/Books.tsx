@@ -4,10 +4,15 @@
 import { useGetBooksQuery } from "@/redux/features/book/bookApi"
 import { IBook } from "@/types/book"
 import BookCard from "./BookCard"
+import {VscLoading} from 'react-icons/vsc'
 
 const Books = () => {
 
-  const {data} = useGetBooksQuery(undefined)
+  const {data, isLoading} = useGetBooksQuery(undefined)
+
+  if(isLoading) return <div className="min-h-[calc(100vh-150px)] flex justify-center items-center">
+    <VscLoading className="text-7xl animate-spin"></VscLoading>
+  </div>
 
   return (
     <div className='px-20 grid grid-cols-3 gap-x-20 gap-y-5 mb-4'>
