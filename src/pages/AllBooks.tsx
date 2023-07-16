@@ -28,7 +28,9 @@ export default function AllBooks() {
 
   const genreFields = ["Fantasy", "Adventure", "Mystery"];
 
-  const { data } = useGetBooksQuery(undefined);
+  const { data } = useGetBooksQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
 
   let booksData;
 
@@ -44,7 +46,7 @@ export default function AllBooks() {
     booksData = data?.data.filter((book: IBook) => book.genre === genre);
   } else if (year) {
     booksData = data?.data.filter(
-      (book: IBook) => book.publication_date.substring(0, 4) === year
+      (book: IBook) => book?.publication_date?.substring(0, 4) === year
     );
   } else {
     booksData = data?.data;

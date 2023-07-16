@@ -20,8 +20,7 @@ const AddNewBook = () => {
 
   const { toast } = useToast();
 
-  const [addBook, { isLoading, isSuccess, isError, error }] =
-    useAddBookMutation();
+  const [addBook, { isLoading, isSuccess, isError }] = useAddBookMutation();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,18 +41,24 @@ const AddNewBook = () => {
     };
 
     await addBook(data);
+  };
 
-    if (isError) {
-      toast({
-        variant: "destructive",
-        title: error as string,
-      });
-    }
-    if (isSuccess)
+  React.useEffect(() => {
+    if (isSuccess) {
       toast({
         description: "Book Added Successfully",
       });
-  };
+    }
+  }, [isSuccess, toast]);
+
+  React.useEffect(() => {
+    if (isError) {
+      toast({
+        variant: "destructive",
+        description: "Something Went wrong",
+      });
+    }
+  }, [isError, toast]);
 
   return (
     <div className="min-h-[calc(100vh-150px)] flex items-center justify-center">

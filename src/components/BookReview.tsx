@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
-import { FiSend } from 'react-icons/fi';
-import { useGetReviewQuery } from '@/redux/features/book/bookApi';
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
+import { FiSend } from "react-icons/fi";
+import {
+  useGetReviewQuery,
+  usePostReviewMutation,
+} from "@/redux/features/book/bookApi";
+import { VscLoading } from "react-icons/vsc";
 
 interface IProps {
   id: string | undefined;
@@ -18,24 +23,22 @@ export default function BookReview({ id }: IProps) {
     pollingInterval: 30000,
   });
 
-  console.log(data);
+  const [postReview, { isLoading }] = usePostReviewMutation();
 
-//   const [postComment] = usePostCommentMutation();
+  const [inputValue, setInputValue] = useState<string>("");
 
-  const [inputValue, setInputValue] = useState<string>('');
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const options = {
-      id,
+    const options: { id: string; data: object } = {
+      id: id!,
       data: {
-        comment: inputValue,
+        review: inputValue,
       },
     };
 
-    // postComment(options);
-    setInputValue('');
+    postReview(options);
+    setInputValue("");
   };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,19 +52,17 @@ export default function BookReview({ id }: IProps) {
           className="min-h-[30px]"
           onChange={handleChange}
           value={inputValue}
-          placeholder='Wrtie a review'
+          placeholder="Wrtie a review"
         />
         <Button
           type="submit"
           className="rounded-full h-10 w-10 p-2 text-[25px]"
         >
-          <FiSend />
+          {isLoading ? <VscLoading className="text-white animate-spin"></VscLoading> : <FiSend />}
         </Button>
       </form>
       <div className="mt-4">
-        {
-            !data?.reviews?.length && "No Review yet"
-        }
+        {!data?.reviews?.length && "No Review yet"}
         {data?.reviews?.map((review: string, index: number) => (
           <div key={index} className="flex gap-3 items-center mb-5">
             <Avatar>
