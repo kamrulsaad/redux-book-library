@@ -12,6 +12,8 @@ import {
   usePostReviewMutation,
 } from "@/redux/features/book/bookApi";
 import { VscLoading } from "react-icons/vsc";
+import { useAppSelector } from "@/redux/hooks";
+import { toast } from "./ui/use-toast";
 
 interface IProps {
   id: string | undefined;
@@ -23,12 +25,21 @@ export default function BookReview({ id }: IProps) {
     pollingInterval: 30000,
   });
 
+  const { user } = useAppSelector((state) => state.user);
+
   const [postReview, { isLoading }] = usePostReviewMutation();
 
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!user.email) {
+      return toast({
+        variant: "destructive",
+        title: "You must be logged in",
+      });
+    }
 
     const options: { id: string; data: object } = {
       id: id!,
@@ -58,7 +69,11 @@ export default function BookReview({ id }: IProps) {
           type="submit"
           className="rounded-full h-10 w-10 p-2 text-[25px]"
         >
-          {isLoading ? <VscLoading className="text-white animate-spin"></VscLoading> : <FiSend />}
+          {isLoading ? (
+            <VscLoading className="text-white animate-spin"></VscLoading>
+          ) : (
+            <FiSend />
+          )}
         </Button>
       </form>
       <div className="mt-4">

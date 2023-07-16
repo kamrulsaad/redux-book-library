@@ -8,6 +8,7 @@ import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import AddNewBook from "@/pages/AddNewBook";
 import BookDetails from "@/pages/BookDetails";
+import UpdateBook from "@/pages/UpdateBook";
 
 const routes = createBrowserRouter([
   {
@@ -23,8 +24,16 @@ const routes = createBrowserRouter([
         element: <AllBooks />,
       },
       {
-        path: "book/:id",
+        path: "/book/:id",
         element: <BookDetails></BookDetails>,
+      },
+      {
+        path: "/book-update/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateBook></UpdateBook>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-new-book",

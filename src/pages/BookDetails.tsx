@@ -24,7 +24,9 @@ const BookDetails = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const { data, isLoading } = useGetSingleBookQuery(id as string);
+  const { data, isLoading } = useGetSingleBookQuery(id as string, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const [deleteBook, { isSuccess }] = useDeleteBookMutation();
 
@@ -60,7 +62,7 @@ const BookDetails = () => {
         <BookCard book={data?.data} />
         <div className="flex gap-4 mt-2 justify-center">
           <Button>
-            <Link to={"/edit-book"}>Edit Book</Link>
+            <Link to={`/book-update/${id!}`}>Edit Book</Link>
           </Button>
           <Button
             variant="destructive"
