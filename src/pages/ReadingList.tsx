@@ -24,14 +24,14 @@ const Reading = () => {
   const [addToReading, { isSuccess, isError, error }] =
     useCompleteReadingMutation();
 
-  const handleClick = async (bookId: string) => {
+  const handleClick = async (book: IBook) => {
     if (!user.email)
       return toast({
         description: "You must be logged in",
         variant: "destructive",
       });
 
-    await addToReading({ email: user.email, bookId });
+    await addToReading({ email: user.email, book: book });
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Reading = () => {
 
             {!book?.completed && (
               <Button
-                onClick={() => handleClick(book?._id)}
+                onClick={() => handleClick(book)}
                 className="absolute bottom-[20px] right-[20px]"
                 variant="outline"
               >

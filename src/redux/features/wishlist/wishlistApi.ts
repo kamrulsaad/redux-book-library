@@ -26,10 +26,10 @@ const wishListApi = api.injectEndpoints({
       query: (email) => `/reading/${email}`,
     }),
     completeReading: builder.mutation({
-      query: ({ email, bookId }: { email: string; bookId: string }) => ({
+      query: ({ email, book }: { email: string; book : IBook }) => ({
         url: `/complete/${email}`,
         method: "PATCH",
-        body: bookId,
+        body: book,
       }),
     }),
   }),
