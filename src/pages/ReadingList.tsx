@@ -13,7 +13,9 @@ import { Link } from "react-router-dom";
 const Reading = () => {
   const { user } = useAppSelector((state) => state.user);
 
-  const { data } = useGetReadingQuery(user?.email);
+  const { data } = useGetReadingQuery(user?.email, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const [addToReading, { isSuccess, isError, error }] =
     useCompleteReadingMutation();
@@ -46,9 +48,9 @@ const Reading = () => {
 
   return (
     <div className="grid grid-cols-3 px-20 gap-4">
-      {
-        !data?.data?.reading.length && <p>Your Reading List is currently empty</p>
-      }
+      {!data?.data?.reading.length && (
+        <p>Your Reading List is currently empty</p>
+      )}
       {data?.data?.reading?.map((book: IBook) => (
         <div className="rounded-2xl relative flex items-start p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-4">
           <div>

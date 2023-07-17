@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { IBook } from "@/types/book";
 import { AiOutlineHeart } from "react-icons/ai";
 import { format } from "date-fns";
-import { useAddToWishListMutation } from "@/redux/features/wishlist/wishlistApi";
+import {
+  useAddToReadingMutation,
+  useAddToWishListMutation,
+} from "@/redux/features/wishlist/wishlistApi";
 import { useAppSelector } from "@/redux/hooks";
 import { toast } from "./ui/use-toast";
 import { useEffect } from "react";
@@ -19,14 +22,28 @@ export default function BookCard({ book }: IProps) {
   const [addToWishList, { isSuccess, isLoading, error, isError }] =
     useAddToWishListMutation();
 
-  const handleClick = async () => {
+  const [
+    addToReading,
+    {
+      isSuccess: readingSuccess,
+      isLoading: readLoading,
+      error: readError,
+      isError: readIsError,
+    },
+  ] = useAddToReadingMutation();
+
+  const handleClick = async (wish: boolean) => {
     if (!user.email)
       return toast({
         description: "You must be logged in",
         variant: "destructive",
       });
 
-    await addToWishList({ email: user.email, book });
+    if (wish) {
+      await addToWishList({ email: user.email, book });
+    } else {
+      await addToReading({ email: user.email, book });
+    }
   };
 
   useEffect(() => {
@@ -43,6 +60,21 @@ export default function BookCard({ book }: IProps) {
       });
     }
   }, [isSuccess, isError, error]);
+
+  useEffect(() => {
+    if (readingSuccess) {
+      toast({
+        description: "Added to your Reading List",
+      });
+    }
+
+    if (readIsError) {
+      toast({
+        variant: "destructive",
+        description: (readError as IError)?.data?.message,
+      });
+    }
+  }, [readError, readingSuccess, readIsError]);
 
   return (
     <div className="rounded-2xl relative flex items-start p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-4">
@@ -63,7 +95,7 @@ export default function BookCard({ book }: IProps) {
           Published: {format(new Date(book.publication_date!), "PPP")}
         </p>
         <Button
-          onClick={handleClick}
+          onClick={() => handleClick(true)}
           className="absolute bottom-[20px] right-[20px]"
           variant="outline"
         >
@@ -75,6 +107,13 @@ export default function BookCard({ book }: IProps) {
               Add to WishList <AiOutlineHeart className="ml-2 text-red-500" />
             </>
           )}
+        </Button>
+        <Button
+          onClick={() => handleClick(false)}
+          className="absolute bottom-[80px] right-[20px]"
+          variant="outline"
+        >
+          {readLoading ? "Loading..." : <> Add to Reading List</>}
         </Button>
       </div>
     </div>
