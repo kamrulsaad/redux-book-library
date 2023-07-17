@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { IBook } from "@/types/book";
@@ -10,6 +7,7 @@ import { useAddToWishListMutation } from "@/redux/features/wishlist/wishlistApi"
 import { useAppSelector } from "@/redux/hooks";
 import { toast } from "./ui/use-toast";
 import { useEffect } from "react";
+import { IError } from "@/types/error";
 
 interface IProps {
   book: IBook;
@@ -41,7 +39,7 @@ export default function BookCard({ book }: IProps) {
     if (isError) {
       toast({
         variant: "destructive",
-        description: error?.data?.message,
+        description: (error as IError)?.data?.message,
       });
     }
   }, [isSuccess, isError, error]);

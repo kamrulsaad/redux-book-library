@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import BookCard from "@/components/BookCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,7 +43,7 @@ export default function AllBooks() {
     booksData = data?.data.filter((book: IBook) => book.genre === genre);
   } else if (year) {
     booksData = data?.data.filter(
-      (book: IBook) => book?.publication_date?.substring(0, 4) === year
+      (book: IBook) => (book?.publication_date as unknown as string)?.substring(0, 4) === year
     );
   } else {
     booksData = data?.data;

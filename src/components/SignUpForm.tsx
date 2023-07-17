@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";

@@ -35,7 +35,7 @@ export const createUser = createAsyncThunk(
   async ({ email, password }: ICredentials) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
 
-    const apiUrl = "http://localhost:5000/user";
+    const apiUrl = "http://localhost:5000/user"; //!https://britania.vercel.app/
     const requestData = {
       email,
     };
@@ -47,7 +47,7 @@ export const createUser = createAsyncThunk(
       },
       body: JSON.stringify(requestData),
     };
-    fetch(apiUrl, requestOptions)
+    fetch(apiUrl, requestOptions);
 
     return data.user.email;
   }

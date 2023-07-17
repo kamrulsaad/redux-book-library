@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import {
@@ -44,13 +38,17 @@ const Reading = () => {
     if (isError) {
       toast({
         variant: "destructive",
-        description: error?.data?.message,
+        description: "Something went wrong",
       });
+      console.log(error);
     }
   }, [isSuccess, isError, error]);
 
   return (
     <div className="grid grid-cols-3 px-20 gap-4">
+      {
+        !data?.data?.reading.length && <p>Your Reading List is currently empty</p>
+      }
       {data?.data?.reading?.map((book: IBook) => (
         <div className="rounded-2xl relative flex items-start p-5 overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:scale-[102%] transition-all gap-4">
           <div>

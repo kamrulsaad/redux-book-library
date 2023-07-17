@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";

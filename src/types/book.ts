@@ -1,4 +1,5 @@
 export interface IBook {
+  completed?: boolean;
   _id?: string;
   title: string;
   author: string;
