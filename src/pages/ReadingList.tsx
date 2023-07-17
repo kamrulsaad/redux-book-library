@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import {
   useCompleteReadingMutation,
   useGetReadingQuery,
@@ -8,26 +8,31 @@ import { useAppSelector } from "@/redux/hooks";
 import { IBook } from "@/types/book";
 import { format } from "date-fns";
 import { useEffect } from "react";
+import { VscLoading } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 const Reading = () => {
+  const { toast } = useToast();
+
   const { user } = useAppSelector((state) => state.user);
 
-  const { data } = useGetReadingQuery(user?.email, {
+  const { data, isLoading } = useGetReadingQuery(user?.email, {
     refetchOnMountOrArgChange: true,
   });
 
-  const [addToReading, { isSuccess, isError, error }] =
+  if (isLoading) {
+    return (
+      <div className="min-h-[calc(100vh-150px)] flex justify-center items-center">
+        <VscLoading className="text-7xl animate-spin"></VscLoading>
+      </div>
+    );
+  }
+
+  const [completeReading, { isSuccess, isError }] =
     useCompleteReadingMutation();
 
   const handleClick = async (book: IBook) => {
-    if (!user.email)
-      return toast({
-        description: "You must be logged in",
-        variant: "destructive",
-      });
-
-    await addToReading({ email: user.email, book: book });
+    completeReading({ email: user.email!, book: book });
   };
 
   useEffect(() => {
@@ -42,9 +47,8 @@ const Reading = () => {
         variant: "destructive",
         description: "Something went wrong",
       });
-      console.log(error);
     }
-  }, [isSuccess, isError, error]);
+  }, [isSuccess, isError]);
 
   return (
     <div className="grid grid-cols-3 px-20 gap-4">

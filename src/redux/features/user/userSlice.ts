@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { auth } from "@/lib/firebase";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
@@ -35,7 +33,7 @@ export const createUser = createAsyncThunk(
   async ({ email, password }: ICredentials) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
 
-    const apiUrl = "http://localhost:5000/user"; //!https://britania.vercel.app/
+    const apiUrl = "https://britania.vercel.app/user" // "http://localhost:5000/user"; 
     const requestData = {
       email,
     };

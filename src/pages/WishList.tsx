@@ -6,16 +6,26 @@ import {
 } from "@/redux/features/wishlist/wishlistApi";
 import { useAppSelector } from "@/redux/hooks";
 import { IBook } from "@/types/book";
+import { IError } from "@/types/error";
 import { format } from "date-fns";
 import { useEffect } from "react";
+import { VscLoading } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 const WishList = () => {
   const { user } = useAppSelector((state) => state.user);
 
-  const { data } = useGetWishListQuery(user?.email, {
+  const { data, isLoading } = useGetWishListQuery(user?.email, {
     refetchOnMountOrArgChange: true,
   });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[calc(100vh-150px)] flex justify-center items-center">
+        <VscLoading className="text-7xl animate-spin"></VscLoading>
+      </div>
+    );
+  }
 
   const [addToReading, { isSuccess, isError, error }] =
     useAddToReadingMutation();
@@ -40,9 +50,8 @@ const WishList = () => {
     if (isError) {
       toast({
         variant: "destructive",
-        description: "Something is wrong",
+        description: (error as IError)?.data?.message,
       });
-      console.log(error);
     }
   }, [isSuccess, isError, error]);
 

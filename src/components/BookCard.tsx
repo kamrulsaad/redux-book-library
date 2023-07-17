@@ -87,7 +87,7 @@ export default function BookCard({ book }: IProps) {
           />
         </Link>
       </div>
-      <div className="pt-4">
+      <div className="pt-1">
         <h2 className="text-xl mb-4 font-semibold">{book?.title}</h2>
         <p>Author: {book.author} </p>
         <p className="text-sm">Genre: {book.genre} </p>

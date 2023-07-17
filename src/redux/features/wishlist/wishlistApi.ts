@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { api } from "@/redux/api/apiSlice";
 import { IBook } from "@/types/book";
 
@@ -24,13 +22,15 @@ const wishListApi = api.injectEndpoints({
     }),
     getReading: builder.query({
       query: (email) => `/reading/${email}`,
+      providesTags: ["wishlist"],
     }),
     completeReading: builder.mutation({
-      query: ({ email, book }: { email: string; book : IBook }) => ({
+      query: ({ email, book }: { email: string; book: IBook }) => ({
         url: `/complete/${email}`,
         method: "PATCH",
         body: book,
       }),
+      invalidatesTags: ["wishlist"],
     }),
   }),
 });
