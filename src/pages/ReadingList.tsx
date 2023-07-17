@@ -8,7 +8,6 @@ import { useAppSelector } from "@/redux/hooks";
 import { IBook } from "@/types/book";
 import { format } from "date-fns";
 import { useEffect } from "react";
-import { VscLoading } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 const Reading = () => {
@@ -20,13 +19,13 @@ const Reading = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  if (isLoading) {
-    return (
-      <div className="min-h-[calc(100vh-150px)] flex justify-center items-center">
-        <VscLoading className="text-7xl animate-spin"></VscLoading>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (isLoading) {
+      toast({
+        description: "Loading...",
+      });
+    }
+  }, [isLoading]);
 
   const [completeReading, { isSuccess, isError }] =
     useCompleteReadingMutation();
